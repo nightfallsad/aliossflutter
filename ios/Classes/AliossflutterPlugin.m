@@ -91,7 +91,7 @@ OSSClient *oss ;
     NSString *crypt_type =call.arguments[@"crypttype"];
     NSString *_id =call.arguments[@"id"];
     
-    //id<OSSCredentialProvider> credential1 = [[OSSFederationCredentialProvider alloc] initWithFederationTokenGetter:^OSSFederationToken * {
+    id<OSSCredentialProvider> credential1 = [[OSSFederationCredentialProvider alloc] initWithFederationTokenGetter:^OSSFederationToken * {
     //    
     //    NSLog(@"init credential1");
     //    NSURL * url = [NSURL URLWithString:stsServer];
@@ -145,9 +145,9 @@ OSSClient *oss ;
             token.tToken = [ossobject objectForKey:@"securityToken"];
             token.expirationTimeInGMTFormat = [ossobject objectForKey:@"expiration"];
             
-    //        return token;
+            return token;
     //    }
-    //}];
+    }];
     oss = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:token];
     NSDictionary *m1 = @{
                          @"result": @"success",
