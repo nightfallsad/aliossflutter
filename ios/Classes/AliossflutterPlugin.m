@@ -143,7 +143,7 @@ OSSClient *oss ;
             token.tAccessKey = [ossobject objectForKey:@"accessKeyId"];
             token.tSecretKey = [ossobject objectForKey:@"accessKeySecret"];
             token.tToken = [ossobject objectForKey:@"securityToken"];
-            token.expirationTimeInGMTFormat = [ossobject objectForKey:@"Expiration"];
+            token.expirationTimeInGMTFormat = [ossobject objectForKey:@"expiration"];
             
     //        return token;
     //    }

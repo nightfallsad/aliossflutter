@@ -222,7 +222,7 @@ public class AliossflutterPlugin implements MethodCallHandler {
                     String ak = jsonObjs.getString("accessKeyId");
                     String sk = jsonObjs.getString("accessKeySecret");
                     String token = jsonObjs.getString("securityToken");
-                    String expiration = jsonObjs.getString("Expiration");
+                    String expiration = jsonObjs.getString("expiration");
                     return new OSSFederationToken(ak, sk, token, expiration);
                 } catch (Exception e) {
                     e.printStackTrace();
