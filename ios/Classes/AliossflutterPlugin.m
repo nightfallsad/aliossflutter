@@ -135,7 +135,8 @@ OSSClient *oss ;
     //            }
     //        }
     //        
-            NSDictionary *ossobject = [NSJSONSerialization JSONObjectWithString: credentials
+            NSData *data = [credentials dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *ossobject = [NSJSONSerialization JSONObjectWithData: data
                                                                       options:kNilOptions
                                                                         error:nil];
             OSSFederationToken * token = [OSSFederationToken new];
