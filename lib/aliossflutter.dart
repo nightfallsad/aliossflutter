@@ -158,9 +158,9 @@ StreamController<ListObjectsResponse> _responseListObjectsController =
   }
 
 //初始化
-  Future init(String stsserver, String endpoint, {String cryptkey = "",String crypttype = "3des"}) async {
+  Future init(String credentials, String endpoint, {String cryptkey = "",String crypttype = "3des"}) async {
     return await _invokeMethod('init', <String, String>{
-      "stsserver": stsserver,
+      "credentials": credentials,
       "endpoint": endpoint,
       "cryptkey": cryptkey,
       "crypttype": crypttype
