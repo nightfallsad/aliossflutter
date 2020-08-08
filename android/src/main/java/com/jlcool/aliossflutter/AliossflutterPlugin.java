@@ -196,47 +196,40 @@ public class AliossflutterPlugin implements MethodCallHandler {
 
     private void init() {
         endpoint = _call.argument("endpoint");
-        final String stsServer = _call.argument("stsserver");
+        final String credentials = _call.argument("credentials");
         final String crypt_key = _call.argument("cryptkey");
         final String crypt_type = _call.argument("crypttype");
         final String _id = _call.argument("id");
-        final OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
-            @Override
-            public OSSFederationToken getFederationToken() {
+        //final OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
+        //    @Override
+        //    public OSSFederationToken getFederationToken() {
                 try {
-                    URL stsUrl = new URL(stsServer);
-                    HttpURLConnection conn = (HttpURLConnection) stsUrl.openConnection();
-                    InputStream input = conn.getInputStream();
-                    String jsonText = IOUtils.readStreamAsString(input, OSSConstants.DEFAULT_CHARSET_NAME);
-                    JSONObject jsonObj = new JSONObject(jsonText);
-                    if (!"".equals(crypt_key) && crypt_key != null) {
-                        String dec = jsonObj.getString("Data");
-                        if ("aes".equals(crypt_type)) {
-                            jsonText = AESCipher.aesDecryptString(dec, crypt_key);
-                        } else {
-                            SecretUtils.PASSWORD_CRYPT_KEY = crypt_key;
-                            jsonText = new String(SecretUtils.decryptMode(dec));
-                        }
-                    }
-                    JSONObject jsonObjs = new JSONObject(jsonText);
-//                    {
-//                        "StatusCode": 200,
-//                            "AccessKeyId":"STS.iA645eTOXEqP3cg3VeHf",
-//                            "AccessKeySecret":"rV3VQrpFQ4BsyHSAvi5NVLpPIVffDJv4LojUBZCf",
-//                            "Expiration":"2015-11-03T09:52:59Z",
-//                            "SecurityToken":"CAES7QIIARKAAZPlqaN9ILiQZPS+JDkS/GSZN45RLx4YS/p3OgaUC+oJl3XSlbJ7StKpQ...."
-//                      }
-                    String ak = jsonObjs.getString("AccessKeyId");
-                    String sk = jsonObjs.getString("AccessKeySecret");
-                    String token = jsonObjs.getString("SecurityToken");
+                    //URL stsUrl = new URL(stsServer);
+                    //HttpURLConnection conn = (HttpURLConnection) stsUrl.openConnection();
+                    //InputStream input = conn.getInputStream();
+                    //String jsonText = IOUtils.readStreamAsString(input, OSSConstants.DEFAULT_CHARSET_NAME);
+                    // JSONObject jsonObj = new JSONObject(jsonText);
+                    //if (!"".equals(crypt_key) && crypt_key != null) {
+                    //    String dec = jsonObj.getString("Data");
+                    //    if ("aes".equals(crypt_type)) {
+                    //        jsonText = AESCipher.aesDecryptString(dec, crypt_key);
+                    //    } else {
+                    //        SecretUtils.PASSWORD_CRYPT_KEY = crypt_key;
+                    //        jsonText = new String(SecretUtils.decryptMode(dec));
+                    //    }
+                    //}
+                    JSONObject jsonObjs = new JSONObject(credentials);
+                    String ak = jsonObjs.getString("accessKeyId");
+                    String sk = jsonObjs.getString("accessKeySecret");
+                    String token = jsonObjs.getString("securityToken");
                     String expiration = jsonObjs.getString("Expiration");
                     return new OSSFederationToken(ak, sk, token, expiration);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return null;
-            }
-        };
+        //        return null;
+        //    }
+        //};
         final ClientConfiguration conf = new ClientConfiguration();
         conf.setConnectionTimeout(15 * 1000); // 连接超时时间，默认15秒
         conf.setSocketTimeout(15 * 1000); // Socket超时时间，默认15秒

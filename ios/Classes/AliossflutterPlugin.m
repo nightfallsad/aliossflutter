@@ -119,22 +119,22 @@ OSSClient *oss ;
     //        // 返回数据是json格式，需要解析得到token的各个字段
     //        
     //        NSData *data=tcs.task.result;
-            
-            
-            if(![crypt_key isEqualToString:@""]){
-                NSDictionary * object = [NSJSONSerialization JSONObjectWithString: credentials
-                                                                        options:kNilOptions
-                                                                          error:nil];
-                if([crypt_type isEqualToString:@"aes"]){
-                    data=[aesDecryptString([object objectForKey:@"Data"],crypt_key) dataUsingEncoding:NSUTF8StringEncoding];
-                    NSLog(@"get token aes: %@", data);
-                }else{
-                    JKEncrypt * en = [[JKEncrypt alloc]init];
-                    data=[[en doDecEncryptStr:[object objectForKey:@"Data"] key:crypt_key] dataUsingEncoding:NSUTF8StringEncoding];
-                    NSLog(@"get token 3des: %@", data);
-                }
-            }
-            
+    //        
+    //        
+    //        if(![crypt_key isEqualToString:@""]){
+    //            NSDictionary * object = [NSJSONSerialization JSONObjectWithString: credentials
+    //                                                                    options:kNilOptions
+    //                                                                      error:nil];
+    //            if([crypt_type isEqualToString:@"aes"]){
+    //                data=[aesDecryptString([object objectForKey:@"Data"],crypt_key) dataUsingEncoding:NSUTF8StringEncoding];
+    //                NSLog(@"get token aes: %@", data);
+    //            }else{
+    //                JKEncrypt * en = [[JKEncrypt alloc]init];
+    //                data=[[en doDecEncryptStr:[object objectForKey:@"Data"] key:crypt_key] dataUsingEncoding:NSUTF8StringEncoding];
+    //                NSLog(@"get token 3des: %@", data);
+    //            }
+    //        }
+    //        
             NSDictionary *ossobject = [NSJSONSerialization JSONObjectWithString: credentials
                                                                       options:kNilOptions
                                                                         error:nil];
