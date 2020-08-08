@@ -148,7 +148,7 @@ OSSClient *oss ;
     //        return token;
     //    }
     //}];
-    oss = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential1];
+    oss = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:token];
     NSDictionary *m1 = @{
                          @"result": @"success",
                          @"id":_id
